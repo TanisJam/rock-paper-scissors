@@ -9,11 +9,21 @@
 </head>
 
 <body>
+
+    <h1>This game was designed to play on the console.</h1>
+    <h3>Press Ctrl + Shift + I to open the console. Then click RUN.</h3>
+    <h4>The game will run 5 rounds. On each one you have to tipe your selection.</h4>
+    <h5>Have fun!</h5>
+
+    <button id="run">RUN</button>
     <script>
+
+        let btnRun = document.getElementById("run");
+        btnRun.addEventListener("click", game);
 
         function computerPlay() {
             //randomly return rock, paper or scissors
-            const options = [rock, paper, scissors];
+            const options = ["rock", "paper", "scissors"];
             let selection = Math.floor(Math.random() * 3);
             return options[selection];
         }
@@ -79,14 +89,16 @@
 
 
             //functions to return final message
-            function loose(winner, looser) {
-                output = (`You loose!, ${winner} beats ${looser}`)
+            //format [winner, winner-choice, looser-choice]
+            //player = 0 //  computer = 1  // tie = 2
+            function loose(winnerChoice, looserChoice) {
+                output = [1, winnerChoice, looserChoice];
             }
-            function tie(option) {
-                output = (`You tied, both play ${option}`)
+            function tie(choice) {
+                output = [2, choice];
             }
-            function win(winner, looser) {
-                output = (`You win!, ${winner} beats ${looser}`)
+            function win(winnerChoice, looserChoice) {
+                output = [0, winnerChoice, looserChoice];
             }
 
             //return the ouput
@@ -94,7 +106,49 @@
 
         }
 
+        function game() {
+            let winner;
+            let userWins = 0;
+            let computerWins = 0;
+
+            for (let round = 1; round <= 5; round++) {
+                let userSelection = prompt("Rock, paper or scissors?");
+
+                let result = playRound(userSelection, computerPlay());
+
+                switch (result[0]) {
+                    case 0:
+                        userWins++;
+                        console.log(`You win!, ${result[1]} beats ${result[2]}`);
+                        break;
+
+                    case 1:
+                        computerWins++;
+                        console.log(`You loose!, ${result[1]} beats ${result[2]}`)
+                        break;
+
+                    case 2:
+                        console.log(`You tied, both play ${result[1]}`)
+                        break;
+                }
+
+            }
+
+            if (userWins > computerWins) {
+                winner = "Player Wins!";
+            } else if (computerWins > userWins) {
+                winner = "Computer Wins!";
+            } else {
+                winner = "Both Wins!"
+            }
+
+            console.log(winner);
+
+            return 0;
+        }
+
     </script>
+
 </body>
 
 </html>
