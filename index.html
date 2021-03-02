@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissor</title>
+</head>
+
+<body>
+    <script>
+
+        function computerPlay() {
+            //randomly return rock, paper or scissors
+            const options = [rock, paper, scissors];
+            let selection = Math.floor(Math.random() * 3);
+            return options[selection];
+        }
+
+        function playRound(playerSelection, computerSelection) {
+            //normalize user imput
+            let userInput = playerSelection.toLowerCase();
+            let output;
+
+            //determine winner throungth comparing selections
+            switch (userInput) {
+                case "rock":
+                    switch (computerSelection) {
+                        case "rock":
+                            tie(userInput);
+                            break;
+
+                        case "paper":
+                            loose(computerSelection, userInput);
+                            break;
+
+                        case "scissors":
+                            win(userInput, computerSelection)
+                            break;
+                    }
+                    break;
+
+                case "paper":
+                    switch (computerSelection) {
+                        case "rock":
+                            win(userInput, computerSelection);
+                            break;
+
+                        case "paper":
+                            tie(userInput);
+                            break;
+
+                        case "scissors":
+                            loose(computerSelection, userInput);
+                            break;
+                    }
+                    break;
+
+                case "scissors":
+                    switch (computerSelection) {
+                        case "rock":
+                            loose(computerSelection, userInput);
+                            break;
+
+                        case "paper":
+                            win(userInput, computerSelection);
+                            break;
+
+                        case "scissors":
+                            tie(userInput);
+                            break;
+                    }
+                    break;
+
+                default:
+                    output = "something goes wrong";
+            }
+
+
+            //functions to return final message
+            function loose(winner, looser) {
+                output = (`You loose!, ${winner} beats ${looser}`)
+            }
+            function tie(option) {
+                output = (`You tied, both play ${option}`)
+            }
+            function win(winner, looser) {
+                output = (`You win!, ${winner} beats ${looser}`)
+            }
+
+            //return the ouput
+            return output;
+
+        }
+
+    </script>
+</body>
+
+</html>
