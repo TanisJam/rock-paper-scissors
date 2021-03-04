@@ -5,150 +5,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock Paper Scissor</title>
+    <title>Rock Paper Scissors</title>
+    <!--CSS CUSTOM-->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <header>
+        <h1>Rock Paper Scissor</h1>
+        <div class="score">
+            <div class="player-score">
+                <h4>Player</h4>
+                <p>0</p>
+            </div>
+            <div class="computer-score">
+                <p>0</p>
+                <h4>Computer</h4>
+            </div>
+        </div>
+    </header>
 
-    <h1>This game was designed to play on the console.</h1>
-    <h3>Press Ctrl + Shift + I to open the console. Then click RUN.</h3>
-    <h4>The game will run 5 rounds. On each one you have to tipe your selection.</h4>
-    <h5>Have fun!</h5>
+    <main>
+        <div class="container">
+            <div class="area-computer">
+                <ul class="board">
+                    <li><img src="img/rock.png" alt="rock"></li>
+                    <li><img src="img/paper.png" alt="paper"></li>
+                    <li><img src="img/scissors.png" alt="scissors"></li>
+                </ul>
+            </div>
 
-    <button id="run">RUN</button>
-    <script>
-
-        let btnRun = document.getElementById("run");
-        btnRun.addEventListener("click", game);
-
-        function computerPlay() {
-            //randomly return rock, paper or scissors
-            const options = ["rock", "paper", "scissors"];
-            let selection = Math.floor(Math.random() * 3);
-            return options[selection];
-        }
-
-        function playRound(playerSelection, computerSelection) {
-            //normalize user imput
-            let userInput = playerSelection.toLowerCase();
-            let output;
-
-            //determine winner throungth comparing selections
-            switch (userInput) {
-                case "rock":
-                    switch (computerSelection) {
-                        case "rock":
-                            tie(userInput);
-                            break;
-
-                        case "paper":
-                            loose(computerSelection, userInput);
-                            break;
-
-                        case "scissors":
-                            win(userInput, computerSelection)
-                            break;
-                    }
-                    break;
-
-                case "paper":
-                    switch (computerSelection) {
-                        case "rock":
-                            win(userInput, computerSelection);
-                            break;
-
-                        case "paper":
-                            tie(userInput);
-                            break;
-
-                        case "scissors":
-                            loose(computerSelection, userInput);
-                            break;
-                    }
-                    break;
-
-                case "scissors":
-                    switch (computerSelection) {
-                        case "rock":
-                            loose(computerSelection, userInput);
-                            break;
-
-                        case "paper":
-                            win(userInput, computerSelection);
-                            break;
-
-                        case "scissors":
-                            tie(userInput);
-                            break;
-                    }
-                    break;
-
-                default:
-                    output = "something goes wrong";
-            }
+            <div class="area-player">
+                <ul class="board">
+                    <li><img src="img/rock.png" alt="rock"></li>
+                    <li><img src="img/paper.png" alt="paper"></li>
+                    <li><img src="img/scissors.png" alt="scissors"></li>
+                </ul>
+                <div class="keys">
+                    <div class="key">A</div>
+                    <div class="key">S</div>
+                    <div class="key">D</div>
+                </div>
+            </div>
+            <p>First to reach 5 points win the game.</p>
+        </div>
+    </main>
 
 
-            //functions to return final message
-            //format [winner, winner-choice, looser-choice]
-            //player = 0 //  computer = 1  // tie = 2
-            function loose(winnerChoice, looserChoice) {
-                output = [1, winnerChoice, looserChoice];
-            }
-            function tie(choice) {
-                output = [2, choice];
-            }
-            function win(winnerChoice, looserChoice) {
-                output = [0, winnerChoice, looserChoice];
-            }
-
-            //return the ouput
-            return output;
-
-        }
-
-        function game() {
-            let winner;
-            let userWins = 0;
-            let computerWins = 0;
-
-            for (let round = 1; round <= 5; round++) {
-                let userSelection = prompt("Rock, paper or scissors?");
-
-                let result = playRound(userSelection, computerPlay());
-
-                switch (result[0]) {
-                    case 0:
-                        userWins++;
-                        console.log(`You win!, ${result[1]} beats ${result[2]}`);
-                        break;
-
-                    case 1:
-                        computerWins++;
-                        console.log(`You loose!, ${result[1]} beats ${result[2]}`)
-                        break;
-
-                    case 2:
-                        console.log(`You tied, both play ${result[1]}`)
-                        break;
-                }
-
-            }
-
-            if (userWins > computerWins) {
-                winner = "Player Wins!";
-            } else if (computerWins > userWins) {
-                winner = "Computer Wins!";
-            } else {
-                winner = "Both Wins!"
-            }
-
-            console.log(winner);
-
-            return 0;
-        }
-
-    </script>
-
+    <!--SCRIPTS-->
+    <script src="script.js"></script>
 </body>
 
 </html>

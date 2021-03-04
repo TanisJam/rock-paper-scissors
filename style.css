@@ -1,0 +1,88 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem 1rem 0 1rem;
+    align-items: center;
+    color: white;
+    background-color: gray;
+}
+
+h1 {
+    margin-bottom: 1rem;
+}
+
+.score {
+    display: flex;
+    padding: 0px;
+    background-color: rgb(189, 31, 31);
+}
+
+.score * {
+    padding: 0rem 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.player-score, .computer-score {
+    padding: .3rem .5rem;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.area-computer, .area-player {
+    margin: 2rem;
+    max-width: 15rem;
+    background-color: rgb(172, 165, 159);
+}
+.area-computer {
+    align-self: flex-end;
+}
+.board {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+li  {
+    list-style-type: none;
+}
+img {
+    width: 64px;
+    height: 64px;
+    margin: 0.4rem;
+    background-color: rgb(211, 202, 194);
+    border-radius: 5px;    
+}
+
+.keys {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.key {
+    background-color: whitesmoke;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    margin: 0.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 1px 1px 0px 2px rgba(63, 63, 63, 0.75);
+}
+
+p{
+    align-self: center;
+}
