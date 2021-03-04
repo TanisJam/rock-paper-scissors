@@ -1,13 +1,80 @@
-function go(){
-    
+//get references for buttons and add the functions
+const playerRock = document.getElementById("player-rock");
+const playerPaper = document.getElementById("player-paper");
+const playerScissors = document.getElementById("player-scissors");
+playerRock.addEventListener("click", choise);
+playerPaper.addEventListener("click", choise);
+playerScissors.addEventListener("click", choise);
+
+const computerRock = document.getElementById("computer-rock");
+const computerPaper = document.getElementById("computer-paper");
+const computerScissors = document.getElementById("computer-scissors");
+
+const btnGo = document.querySelector(".go");
+btnGo.addEventListener("click", go);
+
+//global variables
+let userSelection = undefined;
+let computerSelection = undefined;
+let scorePlayer = 0;
+let scoreComputer = 0;
+
+// main function that run the game
+function go() {
+
+    //test user selection against computer selection
+    computerPlay();
+
+    let result = playRound(userSelection, computerSelection);
+
+    switch (result[0]) {
+        case 0:
+            scorePlayer++;
+            break;
+
+        case 1:
+            scoreComputer++;
+            break;
+
+        case 2:
+            break;
+    }
+
+    updateVisuals();
 }
+
+//set user choise
+function choise(e) {
+    if (userSelection == e.target["alt"]) {
+        userSelection = undefined;
+    } else {
+        userSelection = e.target["alt"];
+    }
+    computerSelection = undefined;
+    updateVisuals();
+}
+
+function updateVisuals() {
+
+    //add selected class to a player selections
+    playerRock.className = userSelection == "rock" ? "selected" : "";
+    playerPaper.className = userSelection == "paper" ? "selected" : "";
+    playerScissors.className = userSelection == "scissors" ? "selected" : "";
+
+    //add selected class to a computer selections
+    computerRock.className = computerSelection == "rock" ? "selected" : "";
+    computerPaper.className = computerSelection == "paper" ? "selected" : "";
+    computerScissors.className = computerSelection == "scissors" ? "selected" : "";
+
+}
+
 
 
 function computerPlay() {
     //randomly return rock, paper or scissors
     const options = ["rock", "paper", "scissors"];
     let selection = Math.floor(Math.random() * 3);
-    return options[selection];
+    computerSelection = options[selection];
 }
 
 function playRound(playerSelection, computerSelection) {

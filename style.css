@@ -69,7 +69,6 @@ h1 {
     transform: scale(1.05);
 }
 
-
 .area-computer, .area-player {
     margin: 2rem;
     max-width: 15rem;
@@ -87,7 +86,7 @@ h1 {
 li  {
     list-style-type: none;
 }
-li:hover {
+.area-player li:hover {
     transform: scale(1.05);
     cursor: pointer;
 }
@@ -96,7 +95,7 @@ img {
     height: 64px;
     margin: 0.4rem;
     background-color: hsla(44, 100%, 60%, 0.871);
-    border-radius: 5px;    
+    border-radius: 25%;    
 }
 
 .keys {
