@@ -5,6 +5,7 @@
 }
 body {
     background-color: #8c7ae6;
+    transition: all .01s;
 }
 
 header {
@@ -60,6 +61,7 @@ h1 {
     font-weight: 900;
     color: white;
     cursor: pointer;
+    transition: all 0.1s;
     
 }
 .container #key-space {
@@ -68,6 +70,10 @@ h1 {
 .go:hover {
     transform: scale(1.05);
 }
+.go:active {
+    transform: scale(.95);
+}
+
 
 .area-computer, .area-player {
     margin: 2rem;
@@ -91,6 +97,7 @@ li  {
     cursor: pointer;
 }
 img {
+    transition: all 0.2s;
     width: 64px;
     height: 64px;
     margin: 0.4rem;
@@ -124,4 +131,8 @@ p{
     position: relative;
     top: -1rem;
     transform: scale(1.1);
+}
+
+.shake {
+    transform: rotate(1deg);
 }

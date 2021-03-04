@@ -22,6 +22,8 @@ let scoreComputer = 0;
 // main function that run the game
 function go() {
 
+    shakeBody();
+
     //test user selection against computer selection
     computerPlay();
 
@@ -152,6 +154,17 @@ function playRound(playerSelection, computerSelection) {
 
     //return the ouput
     return output;
+
+}
+
+function shakeBody () {
+    const body = document.querySelector("body");
+    body.className = "shake";
+
+    body.addEventListener("transitionend", () => {
+        body.classList.remove("shake");
+
+    })
 
 }
 
