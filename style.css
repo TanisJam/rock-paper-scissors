@@ -168,3 +168,7 @@ p{
 .shake {
     transform: scale(.99);
 }
+
+.center {    
+    margin-inline: auto;
+}

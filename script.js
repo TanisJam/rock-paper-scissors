@@ -18,6 +18,9 @@ const computerScissors = document.getElementById("computer-scissors");
 const playerScoreDisplay = document.getElementById("score-player");
 const computerScoreDisplay = document.getElementById("score-computer");
 
+//refereces for keyboard
+document.addEventListener("keypress", keyActions);
+
 
 
 
@@ -66,11 +69,7 @@ function go() {
         let winner = scorePlayer > scoreComputer ? "PLAYER" : "COMPUTER";
         let bgColor = scorePlayer > scoreComputer ? "green" : "red";
         displayMessage(`${winner} WINS`, "6s", bgColor);
-        userSelection = undefined;
-        computerSelection = undefined;
-        scorePlayer = 0;
-        scoreComputer = 0;
-        updateVisuals();
+        reload();
     }
 
 
@@ -79,6 +78,7 @@ function go() {
 
 //set user choise
 function choise(e) {
+    //is choise is equal to previous set to undefuined, else check new
     if (userSelection == e.target["alt"]) {
         userSelection = undefined;
     } else {
@@ -193,6 +193,37 @@ function updateVisuals() {
 
 }
 
+//funtion to handle key events
+function keyActions(e) {
+
+    switch (e.key) {
+        case "a":
+            userSelection = userSelection != "rock" ? "rock" : undefined;
+            computerSelection = undefined;
+            updateVisuals();
+            break;
+        case "s":
+            userSelection = userSelection != "paper" ? "paper" : undefined;
+            computerSelection = undefined;
+            updateVisuals();
+            break;
+        case "d":
+            userSelection = userSelection != "scissors" ? "scissors" : undefined;
+            computerSelection = undefined;            
+            updateVisuals();
+            break;
+        case " ":
+            go();
+            break;
+        case "r":
+            reload();
+            break;
+
+        default:
+            break;
+    }
+}
+
 function shakeBody() {
     const body = document.querySelector("main");
     body.className = "shake";
@@ -204,6 +235,14 @@ function shakeBody() {
 
 }
 
+function reload() {
+    userSelection = undefined;
+    computerSelection = undefined;
+    scorePlayer = 0;
+    scoreComputer = 0;
+    updateVisuals();
+}
+
 function displayMessage(message, moreTime = ".8s", bgColor = "#9c88ffe1") {
     const messageContainer = document.getElementById("message");
     messageContainer.style.backgroundColor = bgColor;
@@ -211,6 +250,6 @@ function displayMessage(message, moreTime = ".8s", bgColor = "#9c88ffe1") {
     messageContainer.style.transition = `all ${moreTime}`
     messageContainer.style.opacity = "100"
     messageContainer.addEventListener("transitionend", (e) => {
-        e.target.style.opacity = "0";    
+        e.target.style.opacity = "0";
     })
 }
