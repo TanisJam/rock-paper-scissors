@@ -6,20 +6,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+
+    <!--GOOGLE FONTS-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+
     <!--CSS CUSTOM-->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <header>
-        <h1>Rock Paper Scissor</h1>
+        <h1>Rock Paper Scissors</h1>
         <div class="score">
             <div class="player-score">
                 <h4>Player</h4>
-                <p>0</p>
+                <p id="score-player">0</p>
             </div>
             <div class="computer-score">
-                <p>0</p>
+                <p id="score-computer">0</p>
                 <h4>Computer</h4>
             </div>
         </div>
@@ -51,9 +56,11 @@
                     <div class="key">D</div>
                 </div>
             </div>
-            <p>First to reach 5 points win the game.</p>
         </div>
     </main>
+    <p id="message">message</p>
+
+    <p>First to reach 5 points win the game.</p>
 
 
     <!--SCRIPTS-->

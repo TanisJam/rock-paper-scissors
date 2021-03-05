@@ -1,4 +1,4 @@
-//get references for buttons and add the functions
+//get references for buttons of player
 const playerRock = document.getElementById("player-rock");
 const playerPaper = document.getElementById("player-paper");
 const playerScissors = document.getElementById("player-scissors");
@@ -6,12 +6,21 @@ playerRock.addEventListener("click", choise);
 playerPaper.addEventListener("click", choise);
 playerScissors.addEventListener("click", choise);
 
+const btnGo = document.querySelector(".go");
+btnGo.addEventListener("click", go);
+
+//reference for computers
 const computerRock = document.getElementById("computer-rock");
 const computerPaper = document.getElementById("computer-paper");
 const computerScissors = document.getElementById("computer-scissors");
 
-const btnGo = document.querySelector(".go");
-btnGo.addEventListener("click", go);
+// references of scoreboard
+const playerScoreDisplay = document.getElementById("score-player");
+const computerScoreDisplay = document.getElementById("score-computer");
+
+
+
+
 
 //global variables
 let userSelection = undefined;
@@ -24,25 +33,48 @@ function go() {
 
     shakeBody();
 
+
     //test user selection against computer selection
     computerPlay();
-
     let result = playRound(userSelection, computerSelection);
+    if (result === undefined) {
+        displayMessage("Pick one to play!");
+        return;
+    }
 
-    switch (result[0]) {
+
+    switch (result) {
         case 0:
             scorePlayer++;
+            displayMessage("Player point!");
             break;
 
         case 1:
             scoreComputer++;
+            displayMessage("Computer point!");
             break;
 
         case 2:
+            displayMessage("Tie!");
             break;
     }
 
     updateVisuals();
+
+    if (scorePlayer > 4 || scoreComputer > 4) {
+
+        let winner = scorePlayer > scoreComputer ? "PLAYER" : "COMPUTER";
+        let bgColor = scorePlayer > scoreComputer ? "green" : "red";
+        displayMessage(`${winner} WINS`, "6s", bgColor);
+        userSelection = undefined;
+        computerSelection = undefined;
+        scorePlayer = 0;
+        scoreComputer = 0;
+        updateVisuals();
+    }
+
+
+
 }
 
 //set user choise
@@ -54,6 +86,93 @@ function choise(e) {
     }
     computerSelection = undefined;
     updateVisuals();
+}
+
+//randomly return rock, paper or scissors
+function computerPlay() {
+    const options = ["rock", "paper", "scissors"];
+    let selection = Math.floor(Math.random() * 3);
+    computerSelection = options[selection];
+}
+
+
+
+function playRound(playerSelection = "", computerSelection) {
+
+    let userInput = playerSelection;
+    let output;
+
+    //determine winner throungth comparing selections
+    switch (userInput) {
+        case "rock":
+            switch (computerSelection) {
+                case "rock":
+                    tie();
+                    break;
+
+                case "paper":
+                    loose();
+                    break;
+
+                case "scissors":
+                    win()
+                    break;
+            }
+            break;
+
+        case "paper":
+            switch (computerSelection) {
+                case "rock":
+                    win();
+                    break;
+
+                case "paper":
+                    tie();
+                    break;
+
+                case "scissors":
+                    loose();
+                    break;
+            }
+            break;
+
+        case "scissors":
+            switch (computerSelection) {
+                case "rock":
+                    loose();
+                    break;
+
+                case "paper":
+                    win();
+                    break;
+
+                case "scissors":
+                    tie();
+                    break;
+            }
+            break;
+
+        default:
+            output = undefined;
+    }
+
+
+    //functions to return final message
+    //format [winner, winner-choice, looser-choice]
+    //player = 0 //  computer = 1  // tie = 2
+    function loose() {
+        output = 1;
+    }
+    function tie() {
+        output = 2;
+    }
+    function win() {
+        output = 0;
+    }
+
+    //return the ouput
+    return output;
+
 }
 
 function updateVisuals() {
@@ -68,97 +187,14 @@ function updateVisuals() {
     computerPaper.className = computerSelection == "paper" ? "selected" : "";
     computerScissors.className = computerSelection == "scissors" ? "selected" : "";
 
-}
-
-
-
-function computerPlay() {
-    //randomly return rock, paper or scissors
-    const options = ["rock", "paper", "scissors"];
-    let selection = Math.floor(Math.random() * 3);
-    computerSelection = options[selection];
-}
-
-function playRound(playerSelection, computerSelection) {
-    //normalize user imput
-    let userInput = playerSelection.toLowerCase();
-    let output;
-
-    //determine winner throungth comparing selections
-    switch (userInput) {
-        case "rock":
-            switch (computerSelection) {
-                case "rock":
-                    tie(userInput);
-                    break;
-
-                case "paper":
-                    loose(computerSelection, userInput);
-                    break;
-
-                case "scissors":
-                    win(userInput, computerSelection)
-                    break;
-            }
-            break;
-
-        case "paper":
-            switch (computerSelection) {
-                case "rock":
-                    win(userInput, computerSelection);
-                    break;
-
-                case "paper":
-                    tie(userInput);
-                    break;
-
-                case "scissors":
-                    loose(computerSelection, userInput);
-                    break;
-            }
-            break;
-
-        case "scissors":
-            switch (computerSelection) {
-                case "rock":
-                    loose(computerSelection, userInput);
-                    break;
-
-                case "paper":
-                    win(userInput, computerSelection);
-                    break;
-
-                case "scissors":
-                    tie(userInput);
-                    break;
-            }
-            break;
-
-        default:
-            output = "something goes wrong";
-    }
-
-
-    //functions to return final message
-    //format [winner, winner-choice, looser-choice]
-    //player = 0 //  computer = 1  // tie = 2
-    function loose(winnerChoice, looserChoice) {
-        output = [1, winnerChoice, looserChoice];
-    }
-    function tie(choice) {
-        output = [2, choice];
-    }
-    function win(winnerChoice, looserChoice) {
-        output = [0, winnerChoice, looserChoice];
-    }
-
-    //return the ouput
-    return output;
+    //update scores
+    playerScoreDisplay.innerText = scorePlayer;
+    computerScoreDisplay.innerText = scoreComputer;
 
 }
 
-function shakeBody () {
-    const body = document.querySelector("body");
+function shakeBody() {
+    const body = document.querySelector("main");
     body.className = "shake";
 
     body.addEventListener("transitionend", () => {
@@ -168,43 +204,13 @@ function shakeBody () {
 
 }
 
-function gameConsole() {
-    let winner;
-    let userWins = 0;
-    let computerWins = 0;
-
-    for (let round = 1; round <= 5; round++) {
-        let userSelection = prompt("Rock, paper or scissors?");
-
-        let result = playRound(userSelection, computerPlay());
-
-        switch (result[0]) {
-            case 0:
-                userWins++;
-                console.log(`You win!, ${result[1]} beats ${result[2]}`);
-                break;
-
-            case 1:
-                computerWins++;
-                console.log(`You loose!, ${result[1]} beats ${result[2]}`)
-                break;
-
-            case 2:
-                console.log(`You tied, both play ${result[1]}`)
-                break;
-        }
-
-    }
-
-    if (userWins > computerWins) {
-        winner = "Player Wins!";
-    } else if (computerWins > userWins) {
-        winner = "Computer Wins!";
-    } else {
-        winner = "Both Wins!"
-    }
-
-    console.log(winner);
-
-    return 0;
+function displayMessage(message, moreTime = ".8s", bgColor = "#9c88ffe1") {
+    const messageContainer = document.getElementById("message");
+    messageContainer.style.backgroundColor = bgColor;
+    messageContainer.innerText = message;
+    messageContainer.style.transition = `all ${moreTime}`
+    messageContainer.style.opacity = "100"
+    messageContainer.addEventListener("transitionend", (e) => {
+        e.target.style.opacity = "0";    
+    })
 }

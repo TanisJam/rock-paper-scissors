@@ -5,7 +5,8 @@
 }
 body {
     background-color: #8c7ae6;
-    transition: all .01s;
+    transition: all .05s;
+    font-family: 'DotGothic16', sans-serif;
 }
 
 header {
@@ -26,8 +27,9 @@ h1 {
     position: relative;
     top: 1rem;
     display: flex;
-    padding: .5rem 0;
+    padding: .1rem 0;
     background-color: #c23616;
+    text-shadow: 1px 1px 1px black;
 }
 
 .score * {
@@ -36,9 +38,18 @@ h1 {
     flex-direction: row;
 }
 
+.score h4{
+    vertical-align: middle;
+    align-self: center;
+}
+
+.score p {
+    font-size: 2rem;
+    font-weight: 900;
+}
+
 .player-score, .computer-score {
     padding: .3rem .5rem;
-
 }
 
 .container {
@@ -48,6 +59,26 @@ h1 {
     flex-direction: column;
 
 }
+
+#message {
+    position: absolute;
+    top: 40%;
+    left: 15%;
+    right: 15%;
+    max-width: 20rem;
+    margin: 0 auto;
+    font-size: 2rem;
+    font-weight: 500;
+    z-index: 12;
+    padding: 0.1rem 1rem;
+    background-color: #9c88ffe1;
+    box-shadow: 0px 0px 50px #9c88ff;
+    border-radius: 50px;
+    pointer-events: none;
+    opacity: 0;
+    transition: all .8s;
+}
+
 .go {
     align-self: center;
     width: 5rem;
@@ -125,6 +156,7 @@ img {
 
 p{
     align-self: center;
+    text-align: center;
 }
 
 .selected {
@@ -134,5 +166,5 @@ p{
 }
 
 .shake {
-    transform: rotate(1deg);
+    transform: scale(.99);
 }
